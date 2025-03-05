@@ -112,7 +112,13 @@ public final class FaceLivenessSession: LivenessService {
 
             let dateForSigning: Date
             if let serverDate = self.serverDate {
-                dateForSigning = serverDate
+                let time = serverDate.timeIntervalSince1970
+                if time > 0 {
+                    dateForSigning = serverDate
+                }
+                else {
+                    dateForSigning = eventDate()
+                }
             } else {
                 dateForSigning = eventDate()
             }
